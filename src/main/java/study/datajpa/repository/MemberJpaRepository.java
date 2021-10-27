@@ -1,7 +1,9 @@
 package study.datajpa.repository;
 
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import study.datajpa.dto.MemberDto;
 import study.datajpa.entity.Member;
 
 import javax.persistence.EntityManager;
@@ -49,4 +51,13 @@ public class MemberJpaRepository {
                 .setParameter("age", age)
                 .getResultList();
     }
+
+    public List<Member> findByUsername(String username) {
+        return em.createNamedQuery("Member.findByUsername", Member.class)
+                .setParameter("username", username)
+                .getResultList();
+    }
+
+
+
 }
