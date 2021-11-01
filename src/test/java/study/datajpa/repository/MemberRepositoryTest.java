@@ -27,6 +27,8 @@ public class MemberRepositoryTest {
 
     @Autowired MemberRepository memberRepository;
     @Autowired TeamRepository teamRepository;
+    @Autowired MemberQueryRepository memberQueryRepository;
+
     @PersistenceContext
     EntityManager em;
 
@@ -272,5 +274,10 @@ public class MemberRepositoryTest {
 
         List<Member> result = memberRepository.findLockByUsername("member1");
 
+    }
+
+    @Test
+    public void callCustom() {
+        List<Member> result = memberRepository.findMemberCustom(); // 인터페이스 명으로 해결되지않을때 쓴다 복잡한 쿼리 문을 사용할때 사용 쪼갤떄 사용
     }
 }

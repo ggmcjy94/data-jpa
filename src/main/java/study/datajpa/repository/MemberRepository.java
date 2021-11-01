@@ -13,7 +13,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-public interface MemberRepository extends JpaRepository<Member, Long> {
+public interface MemberRepository extends JpaRepository<Member, Long>, MemberRepositoryCustom {
 
 
     List<Member> findByUsernameAndAgeGreaterThan(String username, int age);
@@ -54,7 +54,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @EntityGraph(attributePaths = {"team"})
     List<Member> findAll();
 
-    @EntityGraph(attributePaths = {"team"})
+    @EntityGraph(attributePaths = {"team"}) //@EntityGraph만 달아주면 손쉽게 join 해서 한번에 패치해 올 수 있다.
     @Query("select m from Member m")
     List<Member> findMemberEntityGraph();
 
@@ -69,5 +69,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     //select for update lock
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     List<Member> findLockByUsername(String username);
+
 
 }
